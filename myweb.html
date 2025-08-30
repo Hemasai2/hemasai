@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HΞMΛSΛI - Research Papers Search Engine | Find Academic Papers</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="HΞMΛSΛI is a free research paper search engine. Search millions of academic papers by title, author, or abstract">
+  <meta name="keywords" content="research papers, academic papers, scholarly articles, journal articles, paper search, literature search, academic research, scientific papers">
+  <meta name="author" content="HΞMΛSΛI">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags for Social Sharing -->
+  <meta property="og:title" content="HΞMΛSΛI - Research Paper Search Engine">
+  <meta property="og:description" content="Search millions of academic papers across all disciplines. Free research paper search engine for students and researchers.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hemasai08.blogspot.com">
+  <meta property="og:image" content="https://x.com/iamhemasai/photo">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HΞMΛSΛI - Research Paper Search Engine">
+  <meta name="twitter:description" content="Search millions of academic papers across all disciplines. Free research paper search engine for students and researchers.">
+  <meta name="twitter:image" content="https://hemasai.com/twitter-image.png">
+  
+  <!-- Canonical URL to avoid duplicate content issues -->
+  <link rel="canonical" href="https://hemasai08.blogspot.com">
+  
+  <!-- JSON-LD structured data for better search understanding -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "HΞMΛSΛI Research Paper Search",
+    "url": "https://hemasai08.blogspot.com",
+    "description": "A free search engine for academic research papers across all disciplines",
+    "applicationCategory": "EducationalApplication",
+    "operatingSystem": "All",
+    "permissions": "browser",
+    "creator": {
+      "@type": "Organization",
+      "name": "HΞMΛSΛI"
+    }
+  }
+  </script> 
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background: #f5f5f5; color: #333; min-height: 100vh; display: flex; flex-direction: column; align-items: center; transition: all 0.5s; }
+    header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: 50px;
+      transition: all 0.5s;
+    }
+    header h1 {
+      font-size: 5rem;
+      color: #333;
+      font-weight: bold;
+      letter-spacing: 6px;
+      margin-bottom: 40px;
+      transition: all 0.5s;
+      text-align: center;
+    }
+    .search-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 80%;
+      max-width: 900px;
+      transition: all 0.5s;
+      position: relative;
+      flex-direction: column;
+    }
+    .search-input-container {
+      display: flex;
+      width: 100%;
+      position: relative;
+    }
+    #researchSearch {
+      width: 100%;
+      padding: 18px;
+      font-size: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px 0 0 8px;
+      outline: none;
+      border-right: none;
+      transition: all 0.5s;
+    }
+    #researchSearchBtn {
+      padding: 18px 25px;
+      font-size: 18px;
+      border: 1px solid #007BFF;
+      background: #007BFF;
+      color: #fff;
+      border-radius: 0 8px 8px 0;
+      cursor: pointer;
+      transition: all 0.5s;
+    }
+    #researchSearchBtn:hover { background: #0056b3; border-color: #0056b3; }
+    #voiceSearchBtn {
+      position: absolute;
+      right: 120px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+      transition: all 0.3s;
+    }
+    #voiceSearchBtn:hover {
+      color: #007BFF;
+    }
+    #voiceSearchBtn.listening {
+      color: #e74c3c;
+      animation: pulse 1.5s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: translateY(-50%) scale(1); }
+      50% { transform: translateY(-50%) scale(1.1); }
+      100% { transform: translateY(-50%) scale(1); }
+    }
+    .voice-status {
+      position: absolute;
+      bottom: -25px;
+      left: 0;
+      font-size: 14px;
+      color: #666;
+    }
+    #suggestions {
+      position: absolute;
+      top: 65px;
+      left: 0;
+      width: 100%;
+      max-height: 250px;
+      background: white;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      overflow-y: auto;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+    #suggestions div {
+      padding: 12px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    #suggestions div:hover { background: #f1f1f1; }
+    #relatedTopics {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+      width: 100%;
+      justify-content: center;
+    }
+    .topic-chip {
+      padding: 6px 12px;
+      background: #e9ecef;
+      border-radius: 16px;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .topic-chip:hover {
+      background: #dee2e6;
+      transform: translateY(-2px);
+    }
+    #researchResults {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 30px;
+      width: 80%;
+      max-width: 900px;
+    }
+    main { padding: 20px 10%; margin-top: 20px; }
+    .pagination { display: none; justify-content: center; align-items: center; gap: 10px; margin-top: 20px; }
+    .pagination button { padding: 6px 12px; border: none; border-radius: 4px; cursor: pointer; color: white; }
+    #prevPage { background: #6c757d; margin-right: 8px; }
+    #nextPage { background: #007BFF; margin-left: 8px; }
+    .pagination button:disabled { opacity: 0.5; cursor: not-allowed; }
+    footer { text-align: center; padding: 15px; background: #f8f8f8; border-top: 1px solid #ddd; margin-top: 30px; width: 100%; }
+    footer a { margin: 0 10px; text-decoration: none; color: #007BFF; cursor: pointer; }
+    footer a:hover { text-decoration: underline; }
+    .shrink header h1 { font-size: 2rem; margin-bottom: 10px; letter-spacing: 2px; }
+    .shrink .search-container { width: 60%; margin-bottom: 20px; }
+    .shrink #researchSearch { padding: 12px; font-size: 16px; border-radius: 4px 0 0 4px; }
+    .shrink #researchSearchBtn { padding: 12px 18px; font-size: 16px; border-radius: 0 4px 4px 0; }
+    .shrink #voiceSearchBtn { right: 90px; }
+    
+    /* Page content styles */
+    .page-content {
+      width: 80%;
+      max-width: 900px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .page-content h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #007BFF;
+    }
+    
+    .page-content p {
+      line-height: 1.6;
+      margin-bottom: 15px;
+    }
+    
+    .quote-section {
+      text-align: center;
+      margin: 30px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+      border-left: 4px solid #007BFF;
+    }
+    
+    .quote-section p {
+      font-style: italic;
+      color: #555;
+      line-height: 1.6;
+    }
+    
+    .quote-author {
+      text-align: right;
+      font-weight: bold;
+      margin-top: 15px;
+      color: #333;
+    }
+    
+    /* Advanced search controls */
+    .advanced-search-toggle {
+      margin-top: 10px;
+      color: #007BFF;
+      cursor: pointer;
+      font-size: 14px;
+      text-align: right;
+      width: 100%;
+    }
+    
+    .advanced-search-panel {
+      width: 100%;
+      background: white;
+      border-radius: 8px;
+      padding: 15px;
+      margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      display: none;
+    }
+    
+    .search-filter {
+      margin-bottom: 10px;
+    }
+    
+    .search-filter label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    
+    .search-filter select, .search-filter input {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+    }
+    
+    .filter-row {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+    
+    .filter-row .search-filter {
+      flex: 1;
+    }
+    
+    .search-options {
+      display: flex;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    
+    .search-option {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 14px;
+    }
+    
+    @media(max-width:768px){
+      #researchSearchBtn, #researchSearch { font-size: 16px; padding: 12px; }
+      header h1 { font-size: 3rem; margin-bottom: 20px; }
+      #researchResults { width: 90%; }
+      .search-container { flex-direction: column; gap: 10px; }
+      .search-input-container { flex-direction: row; }
+      #researchSearchBtn { border-radius: 8px; width: 50%; order: 0; }
+      #researchSearch { border-radius: 8px; width: 100%; border-left: 1px solid #ccc; }
+      #voiceSearchBtn { right: 110px; }
+      .page-content {
+        width: 90%;
+        padding: 15px;
+      }
+      .filter-row {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>HΞMΛSΛI</h1>
+  </header>
+
+  <div class="search-container" id="searchContainer">
+    <div class="search-input-container">
+      <input id="researchSearch" type="text" placeholder="Search papers by title, author, abstract, or year...">
+      <button id="voiceSearchBtn" title="Voice Search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"></path>
+          <path d="M19 10v2a7 7 0 0 1-14 0v-2"></path>
+          <line x1="12" y1="19" x2="12" y2="23"></line>
+          <line x1="8" y1="23" x2="16" y2="23"></line>
+        </svg>
+      </button>
+      <button id="researchSearchBtn">Search</button>
+    </div>
+    <div class="voice-status" id="voiceStatus"></div>
+    <div id="suggestions"></div>
+    
+    <div class="advanced-search-toggle" id="advancedSearchToggle">
+      Advanced Search Options ▼
+    </div>
+    
+    <div class="advanced-search-panel" id="advancedSearchPanel">
+      <div class="filter-row">
+        <div class="search-filter">
+          <label for="yearFrom">Year From</label>
+          <input type="number" id="yearFrom" min="1900" max="2030" placeholder="e.g., 2010">
+        </div>
+        <div class="search-filter">
+          <label for="yearTo">Year To</label>
+          <input type="number" id="yearTo" min="1900" max="2030" placeholder="e.g., 2023">
+        </div>
+      </div>
+      
+      <div class="search-filter">
+        <label for="searchField">Search Field</label>
+        <select id="searchField">
+          <option value="all">All Fields</option>
+          <option value="title">Title Only</option>
+          <option value="author">Author Only</option>
+          <option value="abstract">Abstract Only</option>
+        </select>
+      </div>
+      
+      <div class="search-filter">
+        <label for="sortBy">Sort By</label>
+        <select id="sortBy">
+          <option value="relevance">Relevance</option>
+          <option value="date">Publication Date (Newest)</option>
+          <option value="citations">Citation Count</option>
+        </select>
+      </div>
+      
+      <div class="search-filter">
+        <label for="language">Language</label>
+        <select id="language">
+          <option value="all">All Languages</option>
+          <option value="en">English</option>
+          <option value="es">Spanish</option>
+          <option value="fr">French</option>
+          <option value="de">German</option>
+          <option value="zh">Chinese</option>
+          <option value="ja">Japanese</option>
+          <option value="hi">Hindi</option>
+          <option value="ar">Arabic</option>
+          <option value="ru">Russian</option>
+          <option value="pt">Portuguese</option>
+          <option value="bn">Bengali</option>
+          <option value="ko">Korean</option>
+          <option value="it">Italian</option>
+          <option value="nl">Dutch</option>
+          <option value="sv">Swedish</option>
+          <option value="tr">Turkish</option>
+          <option value="pl">Polish</option>
+          <option value="vi">Vietnamese</option>
+          <option value="th">Thai</option>
+          <option value="he">Hebrew</option>
+        </select>
+      </div>
+      
+      <div class="search-options">
+        <div class="search-option">
+          <input type="checkbox" id="exactMatch">
+          <label for="exactMatch">Exact Match</label>
+        </div>
+        <div class="search-option">
+          <input type="checkbox" id="openAccessOnly">
+          <label for="openAccessOnly">Open Access Only</label>
+        </div>
+      </div>
+    </div>
+    
+    <div id="relatedTopics"></div>
+  </div>
+
+  <div id="latestPapersSection" style="width: 80%; max-width: 900px; margin-top: 30px;"></div>
+
+  <div id="researchResults"></div>
+
+  <main>
+    <div id="pagination" class="pagination">
+      <button id="prevPage">Prev</button>
+      <span id="pageInfo"></span>
+      <button id="nextPage">Next</button>
+    </div>
+  </main>
+
+  <!-- About Us Page -->
+  <div id="aboutPage" class="page-content" style="display: none;">
+    <h2>About Us</h2>
+    
+    <div class="quote-section">
+      <p>"At HΞMΛSΛI, I built this platform with a simple belief: knowledge has the power to transform lives. Every article, research paper, and library resource here is designed to fuel curiosity, spark innovation, and empower growth. Whether you're starting your journey or advancing in your career, this website is your space to learn, explore, and stay inspired to achieve more every day."</p>
+      <div class="quote-author">---Hemasai</div>
+    </div>
+    
+    <div>
+      <h3>Our Mission</h3>
+      <p>We are dedicated to democratizing access to academic research by tearing down the traditional paywalls and complex jargon that often shroud valuable knowledge. Through our intuitive technology and comprehensive resources, we transform dense, inaccessible research papers into a discoverable and understandable global library. Our mission is to empower students, researchers, and curious minds everywhere by ensuring that groundbreaking insights and data are open and available to all, accelerating innovation and fostering a more informed society.</p>
+    </div>
+  </div>
+
+  <!-- Contact Page -->
+  <div id="contactPage" class="page-content" style="display: none;">
+    <h2>Contact Us</h2>
+    <p>We'd love to hear from you! Whether you have questions about our platform, suggestions for improvement, or just want to share your experience, please don't hesitate to reach out.</p>
+    
+    <div style="margin-top: 30px;">
+      <h3>Get in Touch</h3>
+      <p>Email: hemasaik5@gmail.com</p>
+      <p>Follow us on social media for updates and news:</p>
+      <p>
+        <a href="#" style="color: #007BFF; text-decoration: none;">Twitter</a> | 
+        <a href="#" style="color: #007BFF; text-decoration: none;">LinkedIn</a> | 
+        <a href="#" style="color: #007BFF; text-decoration: none;">Instagram</a>
+      </p>
+    </div>
+    
+    <div style="margin-top: 30px;">
+      <h3>Feedback</h3>
+      <p>Your feedback helps us improve our platform. Let us know what features you'd like to see or report any issues you encounter.</p>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 HΞMΛSΛI | Made with ❤️</p>
+    <div>
+      <a id="homeLink">Home</a> | 
+      <a id="aboutLink">About Us</a> | 
+      <a id="contactLink">Contact</a>
+    </div>
+  </footer>
+
+  <script>
+  (function(){
+    const input = document.getElementById('researchSearch');
+    const btn = document.getElementById('researchSearchBtn');
+    const resultsDiv = document.getElementById('researchResults');
+    const body = document.body;
+    const suggestionsBox = document.getElementById("suggestions");
+    const relatedTopicsDiv = document.getElementById("relatedTopics");
+    const voiceSearchBtn = document.getElementById("voiceSearchBtn");
+    const voiceStatus = document.getElementById("voiceStatus");
+    const advancedSearchToggle = document.getElementById("advancedSearchToggle");
+    const advancedSearchPanel = document.getElementById("advancedSearchPanel");
+
+    const paginationDiv = document.getElementById("pagination");
+    const prevBtn = document.getElementById("prevPage");
+    const nextBtn = document.getElementById("nextPage");
+    const pageInfo = document.getElementById("pageInfo");
+    
+    // Advanced search elements
+    const yearFrom = document.getElementById("yearFrom");
+    const yearTo = document.getElementById("yearTo");
+    const searchField = document.getElementById("searchField");
+    const sortBy = document.getElementById("sortBy");
+    const exactMatch = document.getElementById("exactMatch");
+    const openAccessOnly = document.getElementById("openAccessOnly");
+    const language = document.getElementById("language");
+    
+    // Page elements
+    const aboutPage = document.getElementById('aboutPage');
+    const contactPage = document.getElementById('contactPage');
+    const homeLink = document.getElementById('homeLink');
+    const aboutLink = document.getElementById('aboutLink');
+    const contactLink = document.getElementById('contactLink');
+
+    let currentPage = 1;
+    const perPage = 25;
+    let currentQuery = "";
+    let searchController = null;
+    let cachedResults = {};
+    let recognition = null;
+    let totalResults = 0;
+    let currentApiSource = "";
+    let searchConfig = {
+      yearFrom: "",
+      yearTo: "",
+      field: "all",
+      sort: "relevance",
+      exactMatch: false,
+      openAccessOnly: false,
+      language: "all"
+    };
+
+    // Academic field mapping
+    const academicFields = {
+      "ai": "Artificial Intelligence",
+      "machine learning": "Machine Learning",
+      "deep learning": "Deep Learning",
+      "neural networks": "Neural Networks",
+      "computer vision": "Computer Vision",
+      "nlp": "Natural Language Processing",
+      "data science": "Data Science",
+      "blockchain": "Blockchain",
+      "quantum computing": "Quantum Computing",
+      "cybersecurity": "Cybersecurity",
+      "iot": "Internet of Things",
+      "cloud computing": "Cloud Computing",
+      "renewable energy": "Renewable Energy",
+      "climate change": "Climate Change",
+      "genetic engineering": "Genetic Engineering",
+      "bioinformatics": "Bioinformatics",
+      "cancer research": "Cancer Research",
+      "vaccine development": "Vaccine Development",
+      "mental health": "Mental Health",
+      "sustainable development": "Sustainable Development",
+      "human rights": "Human Rights",
+      "international law": "International Law",
+      "economic policy": "Economic Policy",
+      "financial markets": "Financial Markets",
+      "education technology": "Education Technology",
+      "remote learning": "Remote Learning",
+      "social media": "Social Media",
+      "digital marketing": "Digital Marketing"
+    };
+
+    // Common research topics for suggestions
+    const commonTopics = Object.values(academicFields);
+
+    // Initialize voice recognition if available
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
+
+      recognition.onstart = function() {
+        voiceSearchBtn.classList.add('listening');
+        voiceStatus.textContent = "Listening... Speak now";
+      };
+
+      recognition.onresult = function(event) {
+        const transcript = Array.from(event.results)
+          .map(result => result[0])
+          .map(result => result.transcript)
+          .join('');
+        
+        input.value = transcript;
+        voiceStatus.textContent = "Processing...";
+        
+        if (event.results[0].isFinal) {
+          voiceStatus.textContent = "Ready";
+          searchResearch(transcript);
+        }
+      };
+
+      recognition.onerror = function(event) {
+        voiceSearchBtn.classList.remove('listening');
+        voiceStatus.textContent = "Error: " + event.error;
+        setTimeout(() => { voiceStatus.textContent = ""; }, 3000);
+      };
+
+      recognition.onend = function() {
+        voiceSearchBtn.classList.remove('listening');
+        voiceStatus.textContent = "";
+      };
+    } else {
+      // Browser doesn't support speech recognition
+      voiceSearchBtn.style.display = 'none';
+    }
+
+    // Toggle advanced search panel
+    advancedSearchToggle.addEventListener('click', () => {
+      if (advancedSearchPanel.style.display === 'block') {
+        advancedSearchPanel.style.display = 'none';
+        advancedSearchToggle.innerHTML = 'Advanced Search Options ▼';
+      } else {
+        advancedSearchPanel.style.display = 'block';
+        advancedSearchToggle.innerHTML = 'Advanced Search Options ▲';
+      }
+    });
+
+    // Navigation functions
+    function showHome() {
+      aboutPage.style.display = 'none';
+      contactPage.style.display = 'none';
+      searchContainer.style.display = 'flex';
+      researchResults.style.display = 'block';
+      paginationDiv.style.display = 'flex';
+      main.style.display = 'block';
+      document.getElementById('latestPapersSection').style.display = 'block';
+    }
+
+    function showAbout() {
+      aboutPage.style.display = 'block';
+      contactPage.style.display = 'none';
+      searchContainer.style.display = 'none';
+      researchResults.style.display = 'none';
+      paginationDiv.style.display = 'none';
+      main.style.display = 'none';
+      document.getElementById('latestPapersSection').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    function showContact() {
+      aboutPage.style.display = 'none';
+      contactPage.style.display = 'block';
+      searchContainer.style.display = 'none';
+      researchResults.style.display = 'none';
+      paginationDiv.style.display = 'none';
+      main.style.display = 'none';
+      document.getElementById('latestPapersSection').style.display = 'none';
+      window.scrollTo(0, 0);
+    }
+
+    // Add event listeners for navigation
+    homeLink.addEventListener('click', showHome);
+    aboutLink.addEventListener('click', showAbout);
+    contactLink.addEventListener('click', showContact);
+
+    // Advanced field detection with improved accuracy
+    function detectField(text) {
+      const q = text.toLowerCase();
+      
+      if (q.includes("artificial intelligence") || q.includes(" ai ") || q.includes("machine learning") || 
+          q.includes("neural network") || q.includes("deep learning")) return "Artificial Intelligence";
+          
+      if (q.includes("computer vision") || q.includes("image processing") || q.includes("object detection")) return "Computer Vision";
+      
+      if (q.includes("natural language processing") || q.includes(" nlp ") || q.includes("text mining") || 
+          q.includes("sentiment analysis")) return "Natural Language Processing";
+          
+      if (q.includes("quantum computing") || q.includes("quantum algorithm") || q.includes("qubit")) return "Quantum Computing";
+      
+      if (q.includes("blockchain") || q.includes("cryptocurrency") || q.includes("bitcoin") || 
+          q.includes("ethereum") || q.includes("smart contract")) return "Blockchain";
+          
+      if (q.includes("cybersecurity") || q.includes("network security") || q.includes("encryption") || 
+          q.includes("malware") || q.includes("phishing")) return "Cybersecurity";
+          
+      if (q.includes("internet of things") || q.includes(" iot ") || q.includes("smart device")) return "Internet of Things";
+      
+      if (q.includes("bioinformatics") || q.includes("genomics") || q.includes("proteomics") || 
+          q.includes("computational biology")) return "Bioinformatics";
+          
+      if (q.includes("renewable energy") || q.includes("solar energy") || q.includes("wind power") || 
+          q.includes("sustainable energy")) return "Renewable Energy";
+          
+      if (q.includes("climate change") || q.includes("global warming") || q.includes("carbon emission")) return "Climate Change";
+      
+      if (q.includes("law") || q.includes("legal") || q.includes("court") || q.includes("judicial") || 
+          q.includes("legislation") || q.includes("regulation")) return "Law";
+          
+      if (q.includes("economic") || q.includes("economy") || q.includes("financial") || q.includes("market") || 
+          q.includes("investment") || q.includes("banking")) return "Economics";
+          
+      if (q.includes("computer") || q.includes("software") || q.includes("algorithm") || 
+          q.includes("programming") || q.includes("data structure")) return "Computer Science";
+          
+      if (q.includes("biology") || q.includes("genetic") || q.includes("dna") || q.includes("cell") || 
+          q.includes("organism") || q.includes("evolution")) return "Biology";
+          
+      if (q.includes("physics") || q.includes("quantum") || q.includes("relativity") || q.includes("particle") || 
+          q.includes("thermodynamics")) return "Physics";
+          
+      if (q.includes("chemistry") || q.includes("molecule") || q.includes("compound") || q.includes("reaction") || 
+          q.includes("organic") || q.includes("inorganic")) return "Chemistry";
+          
+      if (q.includes("psychology") || q.includes("cognitive") || q.includes("behavior") || q.includes("mental")) return "Psychology";
+      
+      if (q.includes("sociology") || q.includes("social") || q.includes("culture") || q.includes("community")) return "Sociology";
+      
+      return "Interdisciplinary";
+    }
+
+    // Query expansion with synonyms and related terms
+    function expandQuery(query) {
+      const synonyms = {
+        "ai": ["artificial intelligence", "machine intelligence"],
+        "machine learning": ["ml", "statistical learning", "predictive modeling"],
+        "deep learning": ["neural networks", "cnn", "rnn", "lstm"],
+        "computer vision": ["image recognition", "visual recognition", "object detection"],
+        "nlp": ["natural language processing", "text analysis", "computational linguistics"],
+        "iot": ["internet of things", "smart devices", "connected devices"],
+        "blockchain": ["distributed ledger", "cryptocurrency technology"],
+        "quantum computing": ["quantum information processing", "qubit computing"],
+        "cybersecurity": ["information security", "network security", "cyber defense"]
+      };
+      
+      let expandedQuery = query;
+      const words = query.toLowerCase().split(/\s+/);
+      
+      words.forEach(word => {
+        if (synonyms[word]) {
+          expandedQuery += " " + synonyms[word].join(" ");
+        }
+      });
+      
+      return expandedQuery;
+    }
+
+    // Advanced query parsing
+    function parseQuery(query) {
+      const config = {
+        yearFrom: searchConfig.yearFrom,
+        yearTo: searchConfig.yearTo,
+        field: searchConfig.field,
+        exact: searchConfig.exactMatch,
+        openAccess: searchConfig.openAccessOnly,
+        language: searchConfig.language
+      };
+      
+      // Extract year ranges from query
+      const yearMatch = query.match(/(?:19|20)\d{2}/g);
+      if (yearMatch && yearMatch.length > 0) {
+        const years = yearMatch.map(y => parseInt(y)).sort();
+        if (!config.yearFrom) config.yearFrom = years[0];
+        if (!config.yearTo) config.yearTo = years[years.length - 1];
+        query = query.replace(/(?:19|20)\d{2}/g, '').trim();
+      }
+      
+      // Extract field-specific terms
+      if (query.includes("title:") || query.includes("author:") || query.includes("abstract:")) {
+        const fieldMatch = query.match(/(title|author|abstract):"([^"]+)"/) || query.match(/(title|author|abstract):(\S+)/);
+        if (fieldMatch) {
+          config.field = fieldMatch[1];
+          query = fieldMatch[2];
+        }
+      }
+      
+      // Check for exact match quotes
+      if (query.includes('"')) {
+        config.exact = true;
+        query = query.replace(/"/g, '');
+      }
+      
+      return { query, config };
+    }
+
+    function showRelatedTopics(query) {
+      if (!query.trim()) {
+        relatedTopicsDiv.innerHTML = commonTopics.map(topic => 
+          `<div class="topic-chip" data-topic="${topic}">${topic}</div>`
+        ).join('');
+        return;
+      }
+      
+      const related = commonTopics.filter(topic => 
+        topic.toLowerCase().includes(query.toLowerCase()) ||
+        query.toLowerCase().includes(topic.toLowerCase().split(' ')[0])
+      ).slice(0, 8);
+      
+      if (related.length > 0) {
+        relatedTopicsDiv.innerHTML = related.map(topic => 
+          `<div class="topic-chip" data-topic="${topic}">${topic}</div>`
+        ).join('');
+      } else {
+        relatedTopicsDiv.innerHTML = '';
+      }
+    }
+
+    // Calculate similarity score between two strings
+    function calculateSimilarity(str1, str2) {
+      const words1 = str1.toLowerCase().split(/\s+/);
+      const words2 = str2.toLowerCase().split(/\s+/);
+      
+      const intersection = words1.filter(word => words2.includes(word));
+      const union = [...new Set([...words1, ...words2])];
+      
+      return intersection.length / union.length;
+    }
+
+    // Advanced result ranking algorithm
+    function rankResults(papers, query) {
+      const queryTerms = query.toLowerCase().split(/\s+/).filter(term => term.length > 2);
+      
+      return papers.map(paper => {
+        let score = 0;
+        
+        if (paper.title) {
+          const title = paper.title.toLowerCase();
+          queryTerms.forEach(term => {
+            if (title.includes(term)) score += 3;
+          });
+          
+          if (title.includes(query.toLowerCase())) score += 5;
+        }
+        
+        if (paper.abstract) {
+          const abstract = paper.abstract.toLowerCase();
+          queryTerms.forEach(term => {
+            if (abstract.includes(term)) score += 1;
+          });
+        }
+        
+        if (paper.authors) {
+          const authors = paper.authors.toLowerCase();
+          queryTerms.forEach(term => {
+            if (authors.includes(term)) score += 0.5;
+          });
+        }
+        
+        if (paper.year) {
+          const currentYear = new Date().getFullYear();
+          const yearDiff = currentYear - parseInt(paper.year);
+          if (yearDiff <= 5) score += (5 - yearDiff) * 0.1;
+        }
+        
+        if (paper.pdf) score += 1;
+        
+        const detectedField = detectField(query);
+        if (paper.tag === detectedField) score += 2;
+        
+        return { ...paper, relevance: score };
+      }).sort((a, b) => b.relevance - a.relevance);
+    }
+
+    async function fetchPapers(query, offset, rows, advancedConfig) {
+      if (searchController) {
+        searchController.abort();
+      }
+      searchController = new AbortController();
+      const signal = searchController.signal;
+
+      try {
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Request timeout')), 5000)
+        );
+
+        const expandedQuery = expandQuery(query);
+
+        let openAlexSort = 'relevance_score:desc';
+        let openAlexLang = advancedConfig.language !== 'all' ? `&filter=language:${advancedConfig.language}` : '';
+        if (advancedConfig.sort === 'date') openAlexSort = 'publication_date:desc';
+        if (advancedConfig.sort === 'citations') openAlexSort = 'cited_by_count:desc';
+
+        let arXivSortBy = 'relevance';
+        let arXivOrder = 'descending';
+        if (advancedConfig.sort === 'date') {
+          arXivSortBy = 'submittedDate';
+          arXivOrder = 'descending';
+        }
+
+        const apiRequests = [
+          fetch(`https://api.openalex.org/works?search=${encodeURIComponent(expandedQuery)}${openAlexLang}&per-page=${rows}&page=${Math.floor(offset / rows) + 1}&sort=${openAlexSort}`, { signal }).then(r => r.json()),
+          fetch(`https://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(expandedQuery)}&start=${offset}&max_results=${rows}&sortBy=${arXivSortBy}&sortOrder=${arXivOrder}`, { signal }).then(r => r.text())
+        ];
+
+        const results = await Promise.race([
+          Promise.allSettled(apiRequests),
+          timeoutPromise
+        ]);
+
+        let papers = [];
+        let totalResults = 0;
+        let successfulApiIndex = -1;
+
+        results.forEach((result, index) => {
+          if (result.status === 'fulfilled') {
+            const data = result.value;
+
+            switch(index) {
+              case 0: // OpenAlex
+                if(data.results && data.results.length){
+                  if (successfulApiIndex === -1) {
+                    successfulApiIndex = 0;
+                    totalResults = data.meta.count || 0;
+                    currentApiSource = "OpenAlex";
+                  }
+                  data.results.forEach(item=>{
+                    const year = item.publication_year || "";
+                    if (advancedConfig.yearFrom && year < parseInt(advancedConfig.yearFrom)) return;
+                    if (advancedConfig.yearTo && year > parseInt(advancedConfig.yearTo)) return;
+                    if (advancedConfig.openAccessOnly && !item.open_access?.is_oa) return;
+                    papers.push({
+                      title: item.display_name || "No title",
+                      authors: item.authorships ? item.authorships.map(a=>a.author.display_name).join(", ") : "Unknown authors",
+                      publisher: item.host_venue?.publisher || "Unknown publisher",
+                      pdf: item.open_access?.oa_url || "",
+                      doi: item.doi ? `https://doi.org/${item.doi}` : (item.id || ""),
+                      abstract: item.abstract_inverted_index ? Object.keys(item.abstract_inverted_index).join(" ").slice(0,300)+"..." : "No abstract available",
+                      tag: detectField(item.display_name || query),
+                      source: "OpenAlex",
+                      year: year,
+                      citations: item.cited_by_count || 0
+                    });
+                  });
+                }
+                break;
+              case 1: // arXiv
+                try {
+                  const parser = new DOMParser();
+                  const xmlDoc = parser.parseFromString(data,'application/xml');
+                  const entries = xmlDoc.getElementsByTagName('entry');
+                  if (entries.length > 0) {
+                    if (successfulApiIndex === -1) {
+                      successfulApiIndex = 1;
+                      totalResults = 1000;
+                      currentApiSource = "arXiv";
+                    }
+                    for(let i=0;i<entries.length;i++){
+                      const entry = entries[i];
+                      const title = entry.getElementsByTagName('title')[0]?.textContent || "No title";
+                      const summary = entry.getElementsByTagName('summary')[0]?.textContent || "No abstract available";
+                      const authors = Array.from(entry.getElementsByTagName('author')).map(a=>a.getElementsByTagName('name')[0].textContent).join(', ');
+                      const published = entry.getElementsByTagName('published')[0]?.textContent;
+                      const year = published ? new Date(published).getFullYear() : "";
+                      if (advancedConfig.yearFrom && year < parseInt(advancedConfig.yearFrom)) continue;
+                      if (advancedConfig.yearTo && year > parseInt(advancedConfig.yearTo)) continue;
+                      if (advancedConfig.openAccessOnly) continue;
+                      let pdfLink = '';
+                      const links = entry.getElementsByTagName('link');
+                      for(let l=0;l<links.length;l++){
+                        if(links[l].getAttribute('title')==='pdf'){ pdfLink = links[l].getAttribute('href'); break; }
+                      }
+                      papers.push({
+                        title: title,
+                        authors: authors || "Unknown authors",
+                        publisher: "arXiv",
+                        pdf: pdfLink,
+                        doi: "",
+                        abstract: summary.slice(0,300)+"...",
+                        tag: detectField(title),
+                        source: "arXiv",
+                        year: year,
+                        citations: 0
+                      });
+                    }
+                  }
+                } catch (e) {
+                  console.log("arXiv parsing error");
+                }
+                break;
+            }
+          }
+        });
+
+        return {papers, totalResults};
+
+      } catch(err){
+        if (err.name === 'AbortError') {
+          console.log('Search was aborted');
+          return {papers: [], totalResults: 0};
+        }
+        console.error(err);
+        return {papers: [], totalResults: 0};
+      }
+    }
+
+    async function searchResearch(query, page=1){
+      if(!query){ 
+        resultsDiv.innerHTML = '<p>Please enter a search term.</p>'; 
+        paginationDiv.style.display = "none";
+        document.getElementById('latestPapersSection').style.display = 'block';
+        return; 
+      }
+      
+      searchConfig = {
+        yearFrom: yearFrom.value,
+        yearTo: yearTo.value,
+        field: searchField.value,
+        sort: sortBy.value,
+        exactMatch: exactMatch.checked,
+        openAccessOnly: openAccessOnly.checked,
+        language: language.value
+      };
+      
+      const parsed = parseQuery(query);
+      query = parsed.query;
+      const advancedConfig = { ...searchConfig, ...parsed.config };
+      
+      const cacheKey = `${query}-${page}-${JSON.stringify(advancedConfig)}`;
+      if (cachedResults[cacheKey]) {
+        displayResults(cachedResults[cacheKey]);
+        document.getElementById('latestPapersSection').style.display = 'block';
+        return;
+      }
+      
+      body.classList.add('shrink');
+      currentQuery = query; 
+      currentPage = page;
+      const offset = (page-1)*perPage;
+
+      resultsDiv.innerHTML = '<p>Loading results...</p>';
+      document.getElementById('latestPapersSection').style.display = 'block';
+
+      const {papers: rawPapers, totalResults: fetchedTotal} = await fetchPapers(query, offset, perPage, advancedConfig);
+      let papers = removeDuplicates(rawPapers);
+
+      papers = rankResults(papers, query);
+
+      if (advancedConfig.sort === "date") {
+        papers.sort((a, b) => (b.year || 0) - (a.year || 0));
+      } else if (advancedConfig.sort === "citations") {
+        papers.sort((a, b) => (b.citations || 0) - (a.citations || 0));
+      }
+      
+      cachedResults[cacheKey] = papers;
+      
+      if(!papers.length){ 
+        resultsDiv.innerHTML = '<p>No results found.</p>'; 
+        paginationDiv.style.display = "none"; 
+        document.getElementById('latestPapersSection').style.display = 'block';
+        return; 
+      }
+
+      totalResults = fetchedTotal;
+      displayResults(papers);
+      document.getElementById('latestPapersSection').style.display = 'block';
+    }
+
+    function removeDuplicates(papers) {
+      const seen = new Set();
+      return papers.filter(paper => {
+        const normalizedTitle = paper.title
+          .toLowerCase()
+          .replace(/[^\w\s]/g, '')
+          .replace(/\s+/g, ' ')
+          .trim();
+        
+        if (seen.has(normalizedTitle)) {
+          return false;
+        }
+        seen.add(normalizedTitle);
+        return true;
+      });
+    }
+
+    function displayResults(papers) {
+      const list = document.createElement('div');
+      list.style.display = 'flex'; 
+      list.style.flexDirection = 'column'; 
+      list.style.gap = '12px';
+
+      papers.forEach(paper=>{
+        const card = document.createElement('div');
+        card.style.padding = '12px';
+        card.style.border = '1px solid #ddd';
+        card.style.borderRadius = '8px';
+        card.style.background = '#fff';
+        
+        let metadata = '';
+        if (paper.year) metadata += ` | Year: ${paper.year}`;
+        if (paper.citations) metadata += ` | Citations: ${paper.citations}`;
+        
+        card.innerHTML = `
+          <div style="font-weight:600; font-size:16px; margin-bottom:4px;">${escapeHtml(paper.title)}</div>
+          <div style="color:#444; font-size:14px; margin-bottom:6px;">Authors: ${escapeHtml(paper.authors)}</div>
+          <div style="color:#666; font-size:13px; margin-bottom:6px;">Publisher: ${escapeHtml(paper.publisher)}${metadata}</div>
+          <div style="color:#007bff; font-size:13px; font-style:italic; margin-bottom:6px;">Field: ${paper.tag}</div>
+          <div style="color:#222; font-size:13px; margin-bottom:8px;">${escapeHtml(paper.abstract)}</div>
+          <div>
+            ${paper.pdf ? `<a href="${paper.pdf}" target="_blank" style="margin-left:6px; padding:6px 12px; background:#0b66c3; color:#fff; border-radius:4px; text-decoration:none;">Download</a>` : ""}
+            ${paper.doi ? `<a href="${paper.doi}" target="_blank" style="margin-left:6px; padding:6px 12px; background:#6c757d; color:#fff; border-radius:4px; text-decoration:none;">Publisher</a>` : ""}
+          </div>
+        `;
+        list.appendChild(card);
+      });
+
+      resultsDiv.innerHTML = '';
+      resultsDiv.appendChild(list);
+
+      paginationDiv.style.display = "flex";
+      const totalPages = Math.ceil(totalResults / perPage);
+      pageInfo.textContent = `Page ${currentPage} of ${totalPages}`;
+      prevBtn.disabled = (currentPage === 1);
+      nextBtn.disabled = (currentPage >= totalPages);
+    }
+
+    function escapeHtml(str){
+      if(!str) return '';
+      return String(str).replace(/[&<>"']/g,s=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s]));
+    }
+
+    let debounceTimer;
+    input.addEventListener("input", () => {
+      clearTimeout(debounceTimer);
+      const q = input.value.trim();
+      suggestionsBox.innerHTML = "";
+      
+      showRelatedTopics(q);
+      
+      if(!q){ suggestionsBox.style.display="none"; return; }
+
+      debounceTimer = setTimeout(async ()=>{
+        try{
+          if (searchController) {
+            searchController.abort();
+          }
+          
+          const url = `https://api.openalex.org/works?search=${encodeURIComponent(q)}&per-page=5`;
+          const res = await fetch(url);
+          const data = await res.json();
+          const items = data.results;
+          if(items && items.length){
+            suggestionsBox.style.display = "block";
+            items.forEach(item=>{
+              const title = item.display_name || "Untitled";
+              const div = document.createElement("div");
+              div.textContent = title;
+              div.onclick = ()=>{ input.value = title; suggestionsBox.style.display="none"; searchResearch(title); };
+              suggestionsBox.appendChild(div);
+            });
+          } else {
+            suggestionsBox.style.display = "none";
+          }
+        } catch(e){
+          if (e.name === 'AbortError') return;
+          console.error("Suggestion fetch failed", e);
+          suggestionsBox.style.display = "none";
+        }
+      }, 300);
+    });
+
+    document.addEventListener("click", e=>{
+      if(!e.target.closest(".search-container")) suggestionsBox.style.display="none";
+    });
+
+    relatedTopicsDiv.addEventListener("click", (e) => {
+      if (e.target.classList.contains("topic-chip")) {
+        const topic = e.target.getAttribute("data-topic");
+        input.value = topic;
+        searchResearch(topic);
+      }
+    });
+
+    voiceSearchBtn.addEventListener('click', () => {
+      if (recognition) {
+        try {
+          recognition.start();
+        } catch (error) {
+          voiceStatus.textContent = "Error starting voice recognition";
+          setTimeout(() => { voiceStatus.textContent = ""; }, 3000);
+        }
+      } else {
+        voiceStatus.textContent = "Voice search not supported in your browser";
+        setTimeout(() => { voiceStatus.textContent = ""; }, 3000);
+      }
+    });
+
+    showRelatedTopics('');
+
+    btn.addEventListener('click', function(e) {
+      e.preventDefault();
+      searchResearch(input.value.trim());
+    });
+    
+    input.addEventListener('keydown', function(e) { 
+      if(e.key==='Enter') {
+        e.preventDefault();
+        searchResearch(input.value.trim()); 
+      }
+    });
+
+    prevBtn.addEventListener("click", ()=>{ 
+      if(currentPage > 1) {
+        searchResearch(currentQuery, currentPage-1); 
+      }
+    });
+    
+    nextBtn.addEventListener("click", ()=>{
+      const totalPages = Math.ceil(totalResults / perPage);
+      if(currentPage < totalPages) {
+        searchResearch(currentQuery, currentPage+1); 
+      }
+    });
+
+    function initLatestPapers() {
+      const container = document.getElementById('latestPapersSection');
+      container.innerHTML = '<h2>Latest Papers in Popular Fields</h2>';
+      const list = document.createElement('div');
+      list.style.display = 'flex';
+      list.style.flexDirection = 'column';
+      list.style.gap = '10px';
+      commonTopics.forEach(field => {
+        const fieldDiv = document.createElement('div');
+        fieldDiv.style.border = '1px solid #ddd';
+        fieldDiv.style.borderRadius = '8px';
+        fieldDiv.style.overflow = 'hidden';
+        const header = document.createElement('div');
+        header.style.padding = '10px';
+        header.style.background = '#f8f9fa';
+        header.style.cursor = 'pointer';
+        header.innerHTML = `<strong>${field}</strong> <span style="float:right;">▼</span>`;
+        const content = document.createElement('div');
+        content.style.padding = '10px';
+        content.style.display = 'none';
+        header.addEventListener('click', async () => {
+          if (content.style.display === 'block') {
+            content.style.display = 'none';
+            header.querySelector('span').textContent = '▼';
+          } else {
+            header.querySelector('span').textContent = '▲';
+            if (content.innerHTML === '') {
+              content.innerHTML = '<p>Loading...</p>';
+              const latestConfig = {
+                yearFrom: '2025',
+                yearTo: '2025',
+                field: 'all',
+                sort: 'date',
+                exactMatch: false,
+                openAccessOnly: false,
+                language: 'all'
+              };
+              let {papers} = await fetchPapers(field, 0, 2, latestConfig);
+              if (papers.length === 0) {
+                content.innerHTML = '<p>No recent papers found for 2025. Trying 2024...</p>';
+                latestConfig.yearFrom = '2024';
+                latestConfig.yearTo = '2024';
+                const {papers: newPapers} = await fetchPapers(field, 0, 2, latestConfig);
+                papers = newPapers;
+              }
+              let papersHtml = '';
+              papers.forEach(paper => {
+                let metadata = '';
+                if (paper.year) metadata += ` | Year: ${paper.year}`;
+                if (paper.citations) metadata += ` | Citations: ${paper.citations}`;
+                papersHtml += `
+                  <div style="margin-bottom: 10px; border-bottom: 1px solid #eee; padding-bottom: 10px;">
+                    <div style="font-weight:600; font-size:14px; margin-bottom:4px;">${escapeHtml(paper.title)}</div>
+                    <div style="color:#444; font-size:13px; margin-bottom:4px;">Authors: ${escapeHtml(paper.authors)}</div>
+                    <div style="color:#666; font-size:12px; margin-bottom:4px;">Publisher: ${escapeHtml(paper.publisher)}${metadata}</div>
+                    <div style="color:#007bff; font-size:12px; font-style:italic; margin-bottom:4px;">Field: ${paper.tag}</div>
+                    <div style="color:#222; font-size:12px; margin-bottom:6px;">${escapeHtml(paper.abstract)}</div>
+                    <div>
+                      ${paper.pdf ? `<a href="${paper.pdf}" target="_blank" style="margin-right:6px; padding:4px 8px; background:#28a745; color:#fff; border-radius:4px; text-decoration:none;">Download PDF</a>` : ""}
+                      ${paper.doi ? `<a href="${paper.doi}" target="_blank" style="padding:4px 8px; background:#6c757d; color:#fff; border-radius:4px; text-decoration:none;">View on Publisher</a>` : ""}
+                    </div>
+                  </div>
+                `;
+              });
+              content.innerHTML = papersHtml || '<p>No papers found.</p>';
+            }
+            content.style.display = 'block';
+          }
+        });
+        fieldDiv.appendChild(header);
+        fieldDiv.appendChild(content);
+        list.appendChild(fieldDiv);
+      });
+      container.appendChild(list);
+    }
+
+    initLatestPapers();
+
+  })();
+  </script>
+</body>
+</html>
